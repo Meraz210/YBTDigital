@@ -1,0 +1,328 @@
+/* Dark/Light Theme Styles for YBT Digital */
+
+:root {
+    /* Light theme variables */
+    --bg-color-light: #f8f9fa;
+    --text-color-light: #212529;
+    --card-bg-light: #ffffff;
+    --navbar-bg-light: #f8f9fa;
+    --border-color-light: #dee2e6;
+    
+    /* Dark theme variables */
+    --bg-color-dark: #121212;
+    --text-color-dark: #e0e0e0;
+    --card-bg-dark: #1e1e1e;
+    --navbar-bg-dark: #1e1e1e;
+    --border-color-dark: #444444;
+    
+    /* Common variables */
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4cc9f0;
+    --success-color: #4ade80;
+    --danger-color: #f87171;
+    --warning-color: #fbbf24;
+    --info-color: #7dd3fc;
+}
+
+/* Light theme (default) */
+body {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-mode {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+/* Dark mode overrides */
+body.dark-mode {
+    /* Backgrounds */
+    --bs-body-bg: var(--bg-color-dark);
+    --bs-body-color: var(--text-color-dark);
+}
+
+body.dark-mode .bg-light {
+    background-color: var(--navbar-bg-dark) !important;
+}
+
+body.dark-mode .bg-white {
+    background-color: var(--card-bg-dark) !important;
+}
+
+body.dark-mode .card {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .table {
+    --bs-table-bg: var(--card-bg-dark);
+    --bs-table-color: var(--text-color-dark);
+    --bs-table-border-color: var(--border-color-dark);
+}
+
+body.dark-mode .table th,
+body.dark-mode .table td {
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .form-control {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .form-control:focus {
+    background-color: var(--card-bg-dark);
+    border-color: var(--primary-color);
+    color: var(--text-color-dark);
+    box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+}
+
+body.dark-mode .navbar {
+    background-color: var(--navbar-bg-dark) !important;
+}
+
+body.dark-mode .nav-link {
+    color: var(--text-color-dark) !important;
+}
+
+body.dark-mode .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+body.dark-mode .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+body.dark-mode .btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .dropdown-item {
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .alert {
+    border: none;
+}
+
+body.dark-mode .alert-primary {
+    background-color: rgba(67, 97, 238, 0.15);
+    color: var(--primary-color);
+}
+
+body.dark-mode .alert-success {
+    background-color: rgba(74, 222, 128, 0.15);
+    color: var(--success-color);
+}
+
+body.dark-mode .alert-danger {
+    background-color: rgba(248, 113, 113, 0.15);
+    color: var(--danger-color);
+}
+
+body.dark-mode .alert-warning {
+    background-color: rgba(251, 191, 36, 0.15);
+    color: var(--warning-color);
+}
+
+body.dark-mode .modal-content {
+    background-color: var(--card-bg-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .list-group-item {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .list-group-item-action:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .breadcrumb {
+    background-color: var(--card-bg-dark);
+}
+
+body.dark-mode .page-link {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .mobile-bottom-nav {
+    background: var(--navbar-bg-dark);
+}
+
+body.dark-mode .mobile-bottom-nav-item {
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .mobile-bottom-nav-item.active {
+    background-color: rgba(67, 97, 238, 0.2);
+}
+
+body.dark-mode .testimonial-card {
+    background-color: var(--card-bg-dark);
+}
+
+body.dark-mode .footer {
+    background-color: #1e1e1e;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+body.dark-mode .theme-toggle:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Specific dark mode styles for various components */
+body.dark-mode .hero-section {
+    background: linear-gradient(135deg, #3f37c9, #5d5bcf);
+}
+
+body.dark-mode .product-card {
+    background-color: var(--card-bg-dark);
+    border: 1px solid var(--border-color-dark);
+}
+
+body.dark-mode .product-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .stat-card {
+    background-color: var(--card-bg-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .sidebar {
+    background-color: var(--card-bg-dark);
+}
+
+body.dark-mode .sidebar a {
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .sidebar a:hover,
+body.dark-mode .sidebar a.active {
+    background-color: rgba(67, 97, 238, 0.2);
+    color: white;
+}
+
+body.dark-mode .admin-logo {
+    background-color: var(--secondary-color);
+}
+
+body.dark-mode .mobile-app-bar {
+    background: var(--secondary-color);
+}
+
+/* Ensure proper contrast in dark mode */
+body.dark-mode .text-muted {
+    color: #a0a0a0 !important;
+}
+
+body.dark-mode .text-primary {
+    color: var(--primary-color) !important;
+}
+
+body.dark-mode .text-success {
+    color: var(--success-color) !important;
+}
+
+body.dark-mode .text-danger {
+    color: var(--danger-color) !important;
+}
+
+body.dark-mode .text-warning {
+    color: var(--warning-color) !important;
+}
+
+body.dark-mode .text-info {
+    color: var(--info-color) !important;
+}
+
+/* Adjustments for MDB components in dark mode */
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+    background-color: var(--card-bg-dark);
+    border-color: var(--primary-color);
+    color: var(--text-color-dark);
+    box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+}
+
+/* Scrollbar styling for dark mode */
+body.dark-mode::-webkit-scrollbar {
+    width: 8px;
+}
+
+body.dark-mode::-webkit-scrollbar-track {
+    background: var(--bg-color-dark);
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+    background: var(--border-color-dark);
+    border-radius: 4px;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
