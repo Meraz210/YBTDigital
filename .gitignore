@@ -1,0 +1,25 @@
+# Environment variables
+.env
+**/.env
+
+# Database configuration backup
+config.php.bak
+*.sql.bak
+
+# Uploads - for security
+uploads/
+!uploads/README.md
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
