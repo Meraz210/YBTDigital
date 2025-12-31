@@ -1,9 +1,10 @@
 <?php
 session_start();
+require_once '../config/config.php';
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    header('Location: ../index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }
 
@@ -36,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['user_email'] = $user['email'];
                 
                 // Redirect to home page
-                header('Location: ../index.php');
+                header('Location: ' . BASE_URL . '/index.php');
                 exit;
             } else {
                 $message = 'Invalid password.';
@@ -153,13 +154,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <input class="form-check-input" type="checkbox" id="remember">
                             <label class="form-check-label" for="remember">Remember me</label>
                         </div>
-                        <a href="forgot-password.php">Forgot password?</a>
+                        <a href="<?php echo BASE_URL; ?>/user/forgot-password">Forgot password?</a>
                     </div>
                     
                     <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
                     
                     <div class="text-center">
-                        <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
+                        <p>Don't have an account? <a href="<?php echo BASE_URL; ?>/user/signup.php">Sign up here</a></p>
                     </div>
                 </form>
             </div>

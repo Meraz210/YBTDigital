@@ -1,16 +1,28 @@
 <?php
 session_start();
+require_once '../config/config.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: ' . BASE_URL . '/user/login.php');
     exit;
 }
 
 require_once '../includes/db.php';
 
+// Check if database connection is valid
+if (!$connection || $connection->connect_error) {
+    die('Database connection failed: ' . ($connection ? $connection->connect_error : 'Unknown error'));
+}
+
 // Get user orders
-$stmt = $connection->prepare("SELECT o.id, o.order_date, o.total_amount, o.status, p.name as product_name FROM orders o JOIN products p ON o.product_id = p.id WHERE o.user_id = ? ORDER BY o.order_date DESC");
+$stmt = $connection->prepare("SELECT o.id, o.created_at as order_date, o.total_amount, o.status, p.name as product_name FROM orders o JOIN products p ON o.product_id = p.id WHERE o.user_id = ? ORDER BY o.created_at DESC");
+
+// Check if prepare statement succeeded
+if (!$stmt) {
+    die('Prepare failed: ' . $connection->error);
+}
+
 $stmt->bind_param("i", $_SESSION['user_id']);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -116,7 +128,7 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="../index.php">
+            <a class="navbar-brand" href="<?php echo BASE_URL; ?>/index.php">
                 <i class="fas fa-store me-2"></i>YBT Digital
             </a>
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,10 +137,10 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Home</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../products/index.php">Products</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/products/index.php">Products</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -137,10 +149,10 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
                             <i class="fas fa-user me-1"></i><?php echo htmlspecialchars($_SESSION['user_name']); ?>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                            <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/user/profile.php">Profile</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/user/orders.php">My Orders</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/user/logout.php">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -155,10 +167,10 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
                 <div class="col-md-3 mb-4">
                     <div class="sidebar p-3">
                         <h5>Account Settings</h5>
-                        <a href="profile.php"><i class="fas fa-user me-2"></i>Profile</a>
-                        <a href="orders.php" class="active"><i class="fas fa-shopping-bag me-2"></i>My Orders</a>
-                        <a href="#"><i class="fas fa-download me-2"></i>Downloads</a>
-                        <a href="#"><i class="fas fa-cog me-2"></i>Settings</a>
+                        <a href="<?php echo BASE_URL; ?>/user/profile.php"><i class="fas fa-user me-2"></i>Profile</a>
+                        <a href="<?php echo BASE_URL; ?>/user/orders.php" class="active"><i class="fas fa-shopping-bag me-2"></i>My Orders</a>
+                        <a href="<?php echo BASE_URL; ?>/user/downloads.php"><i class="fas fa-download me-2"></i>Downloads</a>
+                        <a href="<?php echo BASE_URL; ?>/user/profile.php?tab=password"><i class="fas fa-cog me-2"></i>Settings</a>
                     </div>
                 </div>
                 
@@ -166,7 +178,7 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
                 <div class="col-md-9">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h3><i class="fas fa-shopping-bag me-2"></i>My Orders</h3>
-                        <a href="../products/index.php" class="btn btn-primary">Continue Shopping</a>
+                        <a href="<?php echo BASE_URL; ?>/products/index.php" class="btn btn-primary">Continue Shopping</a>
                     </div>
                     
                     <?php if (empty($orders)): ?>
@@ -175,7 +187,7 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
                                 <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
                                 <h5 class="text-muted">No orders yet</h5>
                                 <p class="text-muted">You haven't placed any orders yet. Start shopping now!</p>
-                                <a href="../products/index.php" class="btn btn-primary">Browse Products</a>
+                                <a href="<?php echo BASE_URL; ?>/products/index.php" class="btn btn-primary">Browse Products</a>
                             </div>
                         </div>
                     <?php else: ?>
@@ -227,8 +239,8 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
                 <div class="col-md-2 mb-4">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="../index.php" class="text-light text-decoration-none">Home</a></li>
-                        <li><a href="../products/index.php" class="text-light text-decoration-none">Products</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/index.php" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/products/index.php" class="text-light text-decoration-none">Products</a></li>
                         <li><a href="#" class="text-light text-decoration-none">About</a></li>
                         <li><a href="#" class="text-light text-decoration-none">Contact</a></li>
                     </ul>
@@ -236,9 +248,9 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
                 <div class="col-md-2 mb-4">
                     <h5>Account</h5>
                     <ul class="list-unstyled">
-                        <li><a href="profile.php" class="text-light text-decoration-none">Profile</a></li>
-                        <li><a href="orders.php" class="text-light text-decoration-none">Orders</a></li>
-                        <li><a href="logout.php" class="text-light text-decoration-none">Logout</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/user/profile.php" class="text-light text-decoration-none">Profile</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/user/orders.php" class="text-light text-decoration-none">Orders</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/user/logout.php" class="text-light text-decoration-none">Logout</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -258,19 +270,19 @@ $orders = $result->fetch_all(MYSQLI_ASSOC);
 
     <!-- Mobile Bottom Navigation -->
     <div class="mobile-bottom-nav">
-        <a href="../index.php" class="mobile-bottom-nav-item">
+        <a href="<?php echo BASE_URL; ?>/index.php" class="mobile-bottom-nav-item">
             <i class="fas fa-home mobile-bottom-nav-icon"></i>
             <span>Home</span>
         </a>
-        <a href="../products/index.php" class="mobile-bottom-nav-item">
+        <a href="<?php echo BASE_URL; ?>/products/index.php" class="mobile-bottom-nav-item">
             <i class="fas fa-shopping-bag mobile-bottom-nav-icon"></i>
             <span>Products</span>
         </a>
-        <a href="../cart/index.php" class="mobile-bottom-nav-item">
+        <a href="<?php echo BASE_URL; ?>/cart/index.php" class="mobile-bottom-nav-item">
             <i class="fas fa-shopping-cart mobile-bottom-nav-icon"></i>
             <span>Cart</span>
         </a>
-        <a href="orders.php" class="mobile-bottom-nav-item active">
+        <a href="<?php echo BASE_URL; ?>/user/orders.php" class="mobile-bottom-nav-item active">
             <i class="fas fa-shopping-bag mobile-bottom-nav-icon"></i>
             <span>Orders</span>
         </a>

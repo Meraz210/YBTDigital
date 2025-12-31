@@ -1,5 +1,14 @@
 <?php
 session_start();
+define('BASE_URL', '/YBTDigital');
+
+/* =========================
+   Helper function
+========================= */
+function build_image_url($img) {
+    return $img; // Image URLs are already properly formatted with BASE_URL
+}
+
 require_once '../includes/db.php';
 
 // Initialize cart if not exists
@@ -22,25 +31,25 @@ $products = [
         'id' => 1,
         'name' => 'Premium Web Template',
         'price' => 49.99,
-        'image' => 'https://via.placeholder.com/100x100/4361ee/ffffff?text=Web+Template'
+        'image' => BASE_URL . '/assets/images/web-template.jpg'
     ],
     2 => [
         'id' => 2,
         'name' => 'Mobile UI Kit',
         'price' => 39.99,
-        'image' => 'https://via.placeholder.com/100x100/3f37c9/ffffff?text=Mobile+UI'
+        'image' => BASE_URL . '/assets/images/mobile-ui.jpg'
     ],
     3 => [
         'id' => 3,
         'name' => 'Icon Pack',
         'price' => 29.99,
-        'image' => 'https://via.placeholder.com/100x100/4cc9f0/ffffff?text=Icon+Pack'
+        'image' => BASE_URL . '/assets/images/icon-pack.jpg'
     ],
     4 => [
         'id' => 4,
         'name' => 'Development Tool',
         'price' => 59.99,
-        'image' => 'https://via.placeholder.com/100x100/f72585/ffffff?text=Dev+Tool'
+        'image' => BASE_URL . '/assets/images/dev-tool.jpg'
     ]
 ];
 
@@ -75,8 +84,8 @@ if (!empty($_SESSION['cart'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="../assets/css/theme.css" rel="stylesheet">
-    <link href="../assets/css/mobile.css" rel="stylesheet">
+    <link href="<?php echo BASE_URL; ?>/assets/css/theme.css" rel="stylesheet">
+    <link href="<?php echo BASE_URL; ?>/assets/css/mobile.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #4361ee;
@@ -203,7 +212,7 @@ if (!empty($_SESSION['cart'])) {
     <!-- Desktop Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light desktop-nav">
         <div class="container">
-            <a class="navbar-brand" href="../index.php">
+            <a class="navbar-brand" href="<?php echo BASE_URL; ?>/index.php">
                 <i class="fas fa-store me-2"></i>YBT Digital
             </a>
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -212,16 +221,16 @@ if (!empty($_SESSION['cart'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Home</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../products/index.php">Products</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/products/index.php">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/about.php">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/contact.php">Contact</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -234,18 +243,18 @@ if (!empty($_SESSION['cart'])) {
                                 <i class="fas fa-user me-1"></i><?php echo htmlspecialchars($_SESSION['user_name']); ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../user/profile.php">Profile</a></li>
-                                <li><a class="dropdown-item" href="../user/orders.php">My Orders</a></li>
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/user/profile.php">Profile</a></li>
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/user/orders.php">My Orders</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="../user/logout.php">Logout</a></li>
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/user/logout.php">Logout</a></li>
                             </ul>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../user/login.php"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/user/login.php"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../user/signup.php"><i class="fas fa-user-plus me-1"></i>Sign Up</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/user/signup.php"><i class="fas fa-user-plus me-1"></i>Sign Up</a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -255,11 +264,11 @@ if (!empty($_SESSION['cart'])) {
 
     <!-- Mobile Bottom Navigation -->
     <div class="mobile-bottom-nav">
-        <a href="../index.php" class="mobile-bottom-nav-item">
+        <a href="<?php echo BASE_URL; ?>/index.php" class="mobile-bottom-nav-item">
             <i class="fas fa-home mobile-bottom-nav-icon"></i>
             <span>Home</span>
         </a>
-        <a href="../products/index.php" class="mobile-bottom-nav-item">
+        <a href="<?php echo BASE_URL; ?>/products/index.php" class="mobile-bottom-nav-item">
             <i class="fas fa-shopping-bag mobile-bottom-nav-icon"></i>
             <span>Products</span>
         </a>
@@ -268,12 +277,12 @@ if (!empty($_SESSION['cart'])) {
             <span>Cart</span>
         </a>
         <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="../user/profile.php" class="mobile-bottom-nav-item">
+            <a href="<?php echo BASE_URL; ?>/user/profile.php" class="mobile-bottom-nav-item">
                 <i class="fas fa-user mobile-bottom-nav-icon"></i>
                 <span>Profile</span>
             </a>
         <?php else: ?>
-            <a href="../user/login.php" class="mobile-bottom-nav-item">
+            <a href="<?php echo BASE_URL; ?>/user/login.php" class="mobile-bottom-nav-item">
                 <i class="fas fa-user mobile-bottom-nav-icon"></i>
                 <span>Login</span>
             </a>
@@ -290,7 +299,7 @@ if (!empty($_SESSION['cart'])) {
                         <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
                         <h5 class="text-muted">Your cart is empty</h5>
                         <p class="text-muted">Add some products to your cart</p>
-                        <a href="../products/index.php" class="btn btn-primary">Browse Products</a>
+                        <a href="<?php echo BASE_URL; ?>/products/index.php" class="btn btn-primary">Browse Products</a>
                     </div>
                 </div>
             <?php else: ?>
@@ -302,7 +311,7 @@ if (!empty($_SESSION['cart'])) {
                                     <div class="cart-item">
                                         <div class="row align-items-center">
                                             <div class="col-md-2">
-                                                <img src="<?php echo $item['product']['image']; ?>" class="img-fluid rounded" alt="<?php echo htmlspecialchars($item['product']['name']); ?>">
+                                                <img src="<?php echo htmlspecialchars(build_image_url($item['product']['image'])); ?>" class="img-fluid rounded" alt="<?php echo htmlspecialchars($item['product']['name']); ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <h5><?php echo htmlspecialchars($item['product']['name']); ?></h5>
@@ -350,11 +359,11 @@ if (!empty($_SESSION['cart'])) {
                                     <strong>$<?php echo number_format($cart_total * 1.1, 2); ?></strong>
                                 </div>
                                 
-                                <a href="../checkout/index.php" class="btn btn-success w-100 mb-2">
+                                <a href="<?php echo BASE_URL; ?>/checkout/index.php" class="btn btn-success w-100 mb-2">
                                     <i class="fas fa-lock me-2"></i>Proceed to Checkout
                                 </a>
                                 
-                                <a href="../products/index.php" class="btn btn-outline-primary w-100">
+                                <a href="<?php echo BASE_URL; ?>/products/index.php" class="btn btn-outline-primary w-100">
                                     <i class="fas fa-arrow-left me-2"></i>Continue Shopping
                                 </a>
                             </div>
@@ -386,22 +395,22 @@ if (!empty($_SESSION['cart'])) {
                 <div class="col-md-2 mb-4">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="../index.php" class="text-light text-decoration-none">Home</a></li>
-                        <li><a href="../products/index.php" class="text-light text-decoration-none">Products</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">Contact</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/index.php" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/products/index.php" class="text-light text-decoration-none">Products</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/about.php" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>/contact.php" class="text-light text-decoration-none">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h5>Account</h5>
                     <ul class="list-unstyled">
                         <?php if (isset($_SESSION['user_id'])): ?>
-                            <li><a href="../user/profile.php" class="text-light text-decoration-none">Profile</a></li>
-                            <li><a href="../user/orders.php" class="text-light text-decoration-none">Orders</a></li>
-                            <li><a href="../user/logout.php" class="text-light text-decoration-none">Logout</a></li>
+                            <li><a href="<?php echo BASE_URL; ?>/user/profile.php" class="text-light text-decoration-none">Profile</a></li>
+                            <li><a href="<?php echo BASE_URL; ?>/user/orders.php" class="text-light text-decoration-none">Orders</a></li>
+                            <li><a href="<?php echo BASE_URL; ?>/user/logout.php" class="text-light text-decoration-none">Logout</a></li>
                         <?php else: ?>
-                            <li><a href="../user/login.php" class="text-light text-decoration-none">Login</a></li>
-                            <li><a href="../user/signup.php" class="text-light text-decoration-none">Sign Up</a></li>
+                            <li><a href="<?php echo BASE_URL; ?>/user/login.php" class="text-light text-decoration-none">Login</a></li>
+                            <li><a href="<?php echo BASE_URL; ?>/user/signup.php" class="text-light text-decoration-none">Sign Up</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>

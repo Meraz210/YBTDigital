@@ -1,9 +1,10 @@
 <?php
+define('BASE_URL', '/YBTDigital');
 session_start();
 
 // Redirect if already logged in
 if (isset($_SESSION['admin_id'])) {
-    header('Location: dashboard.php');
+    header('Location: ' . BASE_URL . '/admin/dashboard.php');
     exit;
 }
 
@@ -19,19 +20,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($email) || empty($password)) {
         $message = 'Email and password are required.';
     } else {
-        // Check if admin exists (for now, we'll use a sample admin account)
-        // In a real implementation, you would have an admins table in the database
-        if ($email === 'admin@ybtdigital.com' && $password === 'admin123') {
-            // Set session variables
-            $_SESSION['admin_id'] = 1;
-            $_SESSION['admin_name'] = 'Admin User';
-            $_SESSION['admin_email'] = $email;
+        // Check if admin exists (in this example, we'll check for admin role)
+        $stmt = $connection->prepare("SELECT id, name, email, password, role FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows == 1) {
+            $user = $result->fetch_assoc();
             
-            // Redirect to admin dashboard
-            header('Location: dashboard.php');
-            exit;
+            // Verify password
+            if (password_verify($password, $user['password'])) {
+                // Check if user has admin role
+                if ($user['role'] == 'admin' || $user['role'] == 'super_admin') {
+                    // Set session variables
+                    $_SESSION['admin_id'] = $user['id'];
+                    $_SESSION['admin_name'] = $user['name'];
+                    $_SESSION['admin_email'] = $user['email'];
+                    $_SESSION['admin_role'] = $user['role'];
+                    
+                    // Redirect to admin dashboard
+                    header('Location: ' . BASE_URL . '/admin/dashboard.php');
+                    exit;
+                } else {
+                    $message = 'Access denied. You do not have admin privileges.';
+                }
+            } else {
+                $message = 'Invalid password.';
+            }
         } else {
-            $message = 'Invalid admin credentials.';
+            $message = 'No admin account found with that email.';
         }
     }
 }
@@ -114,8 +132,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="card login-card">
             <div class="card-body p-5">
                 <div class="logo">
-                    <i class="fas fa-lock"></i>
-                    <h2>YBT Digital</h2>
+                    <i class="fas fa-store"></i>
+                    <h2>YBT Digital Admin</h2>
                     <h4>Admin Login</h4>
                 </div>
                 
@@ -137,11 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
-                    
-                    <div class="text-center">
-                        <a href="../index.php">← Back to Store</a>
-                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Login to Admin Panel</button>
                 </form>
             </div>
         </div>

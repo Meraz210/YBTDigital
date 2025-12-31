@@ -1,0 +1,48 @@
+/* Star Rating CSS */
+
+.star-rating-container {
+    display: inline-block;
+    direction: rtl;
+}
+
+.star {
+    font-size: 24px;
+    color: #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 2px;
+}
+
+.star:hover, .star.rated {
+    color: #ffc107;
+}
+
+.star-rating-container .star:hover ~ .star {
+    color: #ddd;
+}
+
+/* Disabled state */
+.star.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Small size */
+.star.size-small {
+    font-size: 16px;
+}
+
+/* Medium size */
+.star.size-medium {
+    font-size: 20px;
+}
+
+/* Large size */
+.star.size-large {
+    font-size: 28px;
+}
+
+/* Extra large size */
+.star.size-xlarge {
+    font-size: 32px;
+}

@@ -32,6 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Clear cart
         $_SESSION['cart'] = [];
         
+        // Store order info in session for success page
+        $_SESSION['last_order'] = [
+            'id' => $connection->insert_id,
+            'date' => date('Y-m-d H:i:s'),
+            'amount' => $amount,
+            'status' => 'completed'
+        ];
+        
         // Redirect to success page
         header('Location: ../checkout/success.php');
         exit;
