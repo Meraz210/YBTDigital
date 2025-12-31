@@ -3,7 +3,11 @@
 
 // Site Information
 define('SITE_NAME', 'YBT Digital');
+<<<<<<< HEAD
 define('SITE_URL', 'http://localhost/YBT Digital');
+=======
+define('SITE_URL', 'http://localhost/YBT%20Digital');
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
 define('SITE_EMAIL', 'support@ybtdigital.com');
 
 // Database Configuration
@@ -13,7 +17,11 @@ define('DB_PASS', getenv('DB_PASS') ?: '');
 define('DB_NAME', getenv('DB_NAME') ?: 'ybt_digital');
 
 // Security
+<<<<<<< HEAD
 define('APP_KEY', getenv('APP_KEY') ?: 'ybtdigital_app_key_here'); // Change this to a random string in production
+=======
+define('APP_KEY', getenv('APP_KEY') ?: 'ybtdigital_secret_key_2025'); // Change this to a random string in production
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
 define('SESSION_LIFETIME', 3600); // 1 hour
 
 // File Uploads
@@ -38,6 +46,7 @@ if (!is_dir(PRODUCTS_DIR)) {
 }
 
 // Session Configuration
+<<<<<<< HEAD
 if (session_status() == PHP_SESSION_NONE) {
     // Apply session settings before starting a session
     ini_set('session.cookie_httponly', 1);
@@ -48,10 +57,20 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 } else {
     // Session is already active - skip ini_set() calls to avoid warnings
+=======
+ini_set('session.cookie_httponly', 1);
+ini_set('session.use_strict_mode', 1);
+ini_set('session.cookie_secure', 0); // Set to 1 if using HTTPS
+
+// Start session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
 }
 
 // Set default timezone
 date_default_timezone_set('UTC');
+<<<<<<< HEAD
 
 // Image helper: build fully qualified or absolute URLs and encode spaces
 if (!function_exists('build_image_url')) {
@@ -72,4 +91,6 @@ if (!function_exists('build_image_url')) {
     }
 }
 
+=======
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
 ?>

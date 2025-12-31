@@ -1,10 +1,17 @@
 <?php
+<<<<<<< HEAD
 define('BASE_URL', '/YBTDigital');
+=======
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
 session_start();
 
 // Redirect if already logged in
 if (isset($_SESSION['admin_id'])) {
+<<<<<<< HEAD
     header('Location: ' . BASE_URL . '/admin/dashboard.php');
+=======
+    header('Location: dashboard.php');
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
     exit;
 }
 
@@ -20,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($email) || empty($password)) {
         $message = 'Email and password are required.';
     } else {
+<<<<<<< HEAD
         // Check if admin exists (in this example, we'll check for admin role)
         $stmt = $connection->prepare("SELECT id, name, email, password, role FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
@@ -50,6 +58,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         } else {
             $message = 'No admin account found with that email.';
+=======
+        // Check if admin exists (for now, we'll use a sample admin account)
+        // In a real implementation, you would have an admins table in the database
+        if ($email === 'admin@ybtdigital.com' && $password === 'admin123') {
+            // Set session variables
+            $_SESSION['admin_id'] = 1;
+            $_SESSION['admin_name'] = 'Admin User';
+            $_SESSION['admin_email'] = $email;
+            
+            // Redirect to admin dashboard
+            header('Location: dashboard.php');
+            exit;
+        } else {
+            $message = 'Invalid admin credentials.';
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
         }
     }
 }
@@ -132,8 +155,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="card login-card">
             <div class="card-body p-5">
                 <div class="logo">
+<<<<<<< HEAD
                     <i class="fas fa-store"></i>
                     <h2>YBT Digital Admin</h2>
+=======
+                    <i class="fas fa-lock"></i>
+                    <h2>YBT Digital</h2>
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
                     <h4>Admin Login</h4>
                 </div>
                 
@@ -155,7 +183,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     
+<<<<<<< HEAD
                     <button type="submit" class="btn btn-primary w-100 mb-3">Login to Admin Panel</button>
+=======
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                    
+                    <div class="text-center">
+                        <a href="../index.php">← Back to Store</a>
+                    </div>
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
                 </form>
             </div>
         </div>

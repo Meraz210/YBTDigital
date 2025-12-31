@@ -1,10 +1,17 @@
 <?php
 session_start();
+<<<<<<< HEAD
 require_once '../config/config.php';
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
     header('Location: ' . BASE_URL . '/index.php');
+=======
+
+// Redirect if already logged in
+if (isset($_SESSION['user_id'])) {
+    header('Location: ../index.php');
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
     exit;
 }
 
@@ -37,7 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['user_email'] = $user['email'];
                 
                 // Redirect to home page
+<<<<<<< HEAD
                 header('Location: ' . BASE_URL . '/index.php');
+=======
+                header('Location: ../index.php');
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
                 exit;
             } else {
                 $message = 'Invalid password.';
@@ -154,13 +165,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <input class="form-check-input" type="checkbox" id="remember">
                             <label class="form-check-label" for="remember">Remember me</label>
                         </div>
+<<<<<<< HEAD
                         <a href="<?php echo BASE_URL; ?>/user/forgot-password">Forgot password?</a>
+=======
+                        <a href="forgot-password.php">Forgot password?</a>
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
                     </div>
                     
                     <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
                     
                     <div class="text-center">
+<<<<<<< HEAD
                         <p>Don't have an account? <a href="<?php echo BASE_URL; ?>/user/signup.php">Sign up here</a></p>
+=======
+                        <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
                     </div>
                 </form>
             </div>

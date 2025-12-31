@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Clear cart
         $_SESSION['cart'] = [];
         
+<<<<<<< HEAD
         // Store order info in session for success page
         $_SESSION['last_order'] = [
             'id' => $connection->insert_id,
@@ -40,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'status' => 'completed'
         ];
         
+=======
+>>>>>>> 33f144d34ed0cf67388d6eab671e9e1472a1795d
         // Redirect to success page
         header('Location: ../checkout/success.php');
         exit;
